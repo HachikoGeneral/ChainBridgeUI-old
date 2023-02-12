@@ -8,18 +8,16 @@ class TxSummary extends Component {
     const { network, eventEvent } = this.props.txData;
     const { transactionHash } = eventEvent;
     let url;
-    if (network === 'ropsten') {
-      url = `https://ropsten.etherscan.io/tx/${transactionHash}`;
-    } else if (network === 'kovan') {
-      url = `https://kovan.etherscan.io/tx/${transactionHash}`;
-    } else if (network === 'rinkeby') {
-     url = `https://rinkeby.etherscan.io/tx/${transactionHash}`;
+    if (network === 'chikochain') {
+      url = `http://95.179.194.226:3000/?rpc=ws%3A%2F%2F70.34.216.42%3A9944#/explorer/tx/${transactionHash}`;
+    } else if (network === 'polygon') {
+      url = `https://polygonscan.io/tx/${transactionHash}`;
     }  
     return url;
   };
 
   render() {
-    const { eventEvent, goerliRecipient, network  } = this.props.txData;
+    const { eventEvent, chikochainRecipient, network  } = this.props.txData;
     const { address, blockHash, blockNumber, data, event, eventSignature, topics, transactionHash, transactionIndex } = eventEvent;
     return (
       <div>
