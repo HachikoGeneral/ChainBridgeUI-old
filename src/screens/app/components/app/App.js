@@ -10,7 +10,7 @@ import Error from './Error';
 import getNetwork from '../../../../scripts/network';
 import executeDeposit from '../../../../scripts/contract';
 import provider from '../../../../scripts/provider';
-import instantiateGoerliContract from '../../../../scripts/goerliContract'; 
+import instantiateChikochainContract from '../../../../scripts/chikochainContract'; 
 
 const { Footer, Content } = Layout;
 
@@ -42,7 +42,7 @@ class App extends Component {
     const { provider, pubKey, network } = this.state;
     this.setState({ amount, dataProcessed: true }, () => {});
     const contract = await executeDeposit(provider, amount, network, pubKey);
-    const goerliContract = await instantiateGoerliContract();
+    const chikochainContract = await instantiateChikochainContract();
     
     contract.on("Deposit", (_recipient, _value, _toChain, event) => {
       const eAddress = _recipient.toLowerCase();
@@ -62,17 +62,17 @@ class App extends Component {
       const cAddress = pubKey[0].toLowerCase();
       if (gAddress === cAddress) {
         this.setState({ 
-          goerliRecipient: _recipient, 
-          goerliValue: _value,
-          goerliFromChain: _fromChain,
+          chikochainRecipient: _recipient, 
+          chikochainValue: _value,
+          chikochainFromChain: _fromChain,
         });
       }
     });
   }
 
   getEventData = () => {
-    const { network, eventRecipient, eventValue, eventToChain, eventEvent, goerliRecipient, goerliValue, goerliFromChain } = this.state;
-    const eventObject = { eventRecipient, eventValue, eventToChain, eventEvent, goerliRecipient, goerliValue, goerliFromChain, network };
+    const { network, eventRecipient, eventValue, eventToChain, eventEvent, chikochainRecipient, chikochainValue, chikochainFromChain } = this.state;
+    const eventObject = { eventRecipient, eventValue, eventToChain, eventEvent, chikochainRecipient, chikochainValue, chikochainFromChain, network };
     return eventObject;
   };
 
@@ -83,9 +83,9 @@ class App extends Component {
       eventValue: null, 
       eventToChain: null, 
       eventEvent: null,
-      goerliRecipient: null,
-      goerliValue: null,
-      goerliFromChain: null,
+      chikochainRecipient: null,
+      chikochainValue: null,
+      chikochainFromChain: null,
       amount: 0,
      });
   };
@@ -118,7 +118,7 @@ class App extends Component {
             }
           </div>
         </Content>
-        <Footer className="footer"> G&ouml;rli </Footer>
+        <Footer className="footer"> C&himl;kochain </Footer>
       </Layout>
     );
   }
